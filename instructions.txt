@@ -45,3 +45,14 @@ ros2 run turtlesim turtle_teleop_key
 
 // change control to new turtle
 ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle/cmd_vel:=turtle2/cmd_vel
+----------------------------------------------------------------------------------------
+
+ROS Topic
+A topic is one way data is moved between nodes. where 1 or more publisher nodes can connect to 
+1 or more subscriber nodes.
+
+# 1. open new terminal and run
+```
+ros2 run <package_name> <executable_node>
+ros2 run turtlesim turtlesim_node 
+```
