@@ -1,67 +1,84 @@
-# 1. Running executables
-```
+## **1. Running Executables**  
+
+### **Install Turtlesim**  
+To install `turtlesim`, run the following commands:
+```bash
 sudo apt update
 sudo apt install ros-humble-turtlesim
 ```
-see list of packages
-```
+
+### **See List of Packages**  
+To list all available executables:
+```bash
 ros2 pkg executables
 ```
-see list of executables from turtlesim package
-```
+
+### **See List of Executables from Turtlesim Package**  
+To check the executables available in the `turtlesim` package:
+```bash
 ros2 pkg executables turtlesim
 ```
-where is turltlesim
-```
+
+### **Find Turtlesim Location**  
+Navigate to the ROS installation directory:
+```bash
 cd /opt/ros/humble/
 code .
 ```
-- `` ctrl+P ``  means search for `` turtlesim ``
-should show turtlesim is located in 
-```
-output:
-`` share/ament_index/resource_index/packages ``
-```
-run turtlesim. Do ros2 run `` -h  `` so see options
-```
-# ros2 run <package_name> <executable_name>
+- **`Ctrl + P`** → Search for **`turtlesim`**  
+- You should find **turtlesim** located in:  
+  ```bash
+  share/ament_index/resource_index/packages
+  ```
+
+### **Run Turtlesim**  
+Use the following command to start the `turtlesim` node:
+```bash
 ros2 run turtlesim turtlesim_node
 ```
+> **Tip:** Use `ros2 run <package_name> <executable_name> -h` to see available options.
 
-In other terminal, run the teleop mode
-```
+### **Run Teleop Mode in Another Terminal**  
+To control the turtle interactively, run:
+```bash
 ros2 run turtlesim turtle_teleop_key
 ```
----------------------------------------------------------------------
-# 2. RQT 
-"ROS Qt-based framework"
-It is a Qt-based graphical user interface (GUI) framework used for visualizing 
-and debugging ROS nodes, topics, and messages. It provides various plugins for 
-plotting data, managing parameters, and monitoring system performance.
 
-install rqt
-```
+## **2. RQT**  
+
+### **Overview**  
+"ROS Qt-based framework" is a Qt-based graphical user interface (GUI) framework used for visualizing and debugging ROS nodes, topics, and messages. It provides various plugins for plotting data, managing parameters, and monitoring system performance.
+
+### **Install RQT**  
+To install `rqt`, run the following command:
+```bash
 sudo apt install ~nros-humble-rqt*
 ```
-run rqt
-```
-rqt 
-```
-=> this will open a GUI and go to  plugins --> service --> service caller
---> select spawn in service
 
-run turtlesim
+### **Run RQT**  
+To launch the `rqt` GUI:
+```bash
+rqt
 ```
+- This will open a GUI. Navigate to:
+  - **Plugins** → **Service** → **Service Caller**
+  - Select **Spawn** in the service menu.
+
+### **Run Turtlesim**  
+Start the `turtlesim` node:
+```bash
 ros2 run turtlesim turtlesim_node
 ```
 
-In another terminal, start the teleop node
-```
+### **Run Teleop Mode in Another Terminal**  
+To enable keyboard control:
+```bash
 ros2 run turtlesim turtle_teleop_key
 ```
 
-change control to new turtle
-```
+### **Change Control to a New Turtle**  
+To remap control to a new turtle:
+```bash
 ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle/cmd_vel:=turtle2/cmd_vel
 ```
 ----------------------------------------------------------------------------------------
@@ -106,7 +123,7 @@ ros2 topic info /turtle1/cmd_vel
 ros2 interface show <type>
 ros2 interface show geometry_msgs/msg/Twist
 ```
-8. Publish data to a topic ("--once" means publish once and exit)
+8. Publish data to a topic ( `` --once `` means publish once and exit)
 ```
 ros2 topic pub <topic_name> <msg_type> '<args>'
 
