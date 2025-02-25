@@ -16,13 +16,13 @@ where is turltlesim
 cd /opt/ros/humble/
 code .
 ```
-{ctrl+P => means (search for ) => turtlesim}
+- `` ctrl+P ``  means search for `` turtlesim ``
 should show turtlesim is located in 
 ```
 output:
-share/ament_index/resource_index/packages
+`` share/ament_index/resource_index/packages ``
 ```
-run turtlesim. Do ros2 run -h so see options
+run turtlesim. Do ros2 run `` -h  `` so see options
 ```
 # ros2 run <package_name> <executable_name>
 ros2 run turtlesim turtlesim_node
@@ -352,7 +352,7 @@ ros2 bag play bagData
 -----------------------------------------------------------------------------------
 # Build Package with Colcon
 
-A package contains your source, CmakeList.txt, headers, and package.xml (meta info) for your ROS programs. Colcon is the tool to build your package.
+A package contains your `` source `` , `` CmakeList.txt `` , `` headers `` , and `` package.xml ``  (meta info) for your ROS programs. Colcon is the tool to build your package.
 
 1. Install colcon
 ```
@@ -401,7 +401,7 @@ ros2 run turtlesim turtlesim_node
 -----------------------------------------------------------------------------------
 # Create Your Own Package
 
-Recall a package contains your source. CmakeList.txt, headers, and package.xml (meta info) for your ROS programs. Here we will create our own package from scratch.
+Recall a package contains your `` source `` . `` CmakeList.txt `` , `` headers `` , and `` package.xml `` (meta info) for your ROS programs. Here we will create our own package from scratch.
 
 0. Prereq - install colcon and create workspace. skip if did it already from topic.
 ```
@@ -416,12 +416,12 @@ rosf2 pkg create --build-type amet_cmake --node-name my_node my_package
 ```
 2. Check out the files and folders that it made. Open files and see what's inside.
 ```
-include/my_package
-src/my_node.cpp
-cMakeList.txt
-package.xml
+`` include/my_package ``
+`` src/my_node.cpp ``
+`` cMakeList.txt ``
+`` package.xml ``
 ```
-3. Build that package from ~/ros_ws
+3. Build that package from `` ~/ros_ws ``
 ```
 colcon build --packages-select my_package
 ```
@@ -445,7 +445,7 @@ ros2 pkg create --build-type ament_cmake cpp_pubsub
 2. For the pubsub src, copy 
 ------------------------------------------------------------------------------------
 # Doctor
-Ros2 doctar (aka "wtf - where is the fault") is a diagnostic tool that helps you check if your dependencies or packages are up to date and if there is any communication issues between your nodes.
+`` Ros2 doctar `` (aka "wtf - where is the fault") is a diagnostic tool that helps you check if your dependencies or packages are up to date and if there is any communication issues between your nodes.
 
 1. Run ros2 doctor
 ```
@@ -494,24 +494,24 @@ cd ~/ros2_ws/src
 ros2 pkg create --build-type ament_cmake --dependencies pluginlib --node-name area_node --license Apache-2.0 polygon_base
 ```
 2. Create abstract base class.
-   Move .../polygon_base/regular_polygon.hpp to ~/ros2_ws/src/polygon_base/include/polygon_base
-3. Modify CMakeList.txt file.
+   Move `` .../polygon_base/regular_polygon.hpp `` to `` ~/ros2_ws/src/polygon_base/include/polygon_base ``
+3. Modify `` CMakeList.txt `` file.
 
 # Create Plugin Package
-1. Create pllygon_plugin package
+1. Create `` pllygon_plugin  `` package
 ```
 cd ~/ros2_ws/src
 ros2 pkg create --build-type ament_cmake --dependencies polygon_base pluginlib --library-name polygon_plugins --license Apache-2.0 polygon_plugins
 ```
-2. Replace ros2_ws/src/polygon_plugins/src/polygon_plugins.cpp with .../polygon_plugins/polygon_plugins.cpp
+2. Replace `` ros2_ws/src/polygon_plugins/src/polygon_plugins.cpp `` with `` .../polygon_plugins/polygon_plugins.cpp ``
 3. Move .../polygon_plugins/plugins.xml to ros2_ws/src/polygon_plugins
-4. Modyfy CMakeLists.txt file
+4. Modyfy `` CMakeLists.txt `` file
 ----------------------------------------------------------------------------------
 # Use the plugin
 Key Point: the area_node.cpp can use the triangle and square implementation created in the ploygon_plugins without having to include the polygon_plugin class.
 
 1. Replace the
-   ~/ros2_ws/src/polygon_base/src/area_node.cpp with the one in  .../polygon_base/area_node.cpp
+   `` ~/ros2_ws/src/polygon_base/src/area_node.cpp `` with the one in  `` .../polygon_base/area_node.cpp ``
 2. Build package
 ```
 cd ~/ros2_ws
@@ -529,18 +529,18 @@ ros2 run polygon_base area_node
 The rosdep command is a tool used to manage dependencies in ROS.
 
 # How does rosdep work?
-rosdep will find the "rosdep keys" (the dependencies listed in the package.xml file) and check with a central index.
+rosdep will find the `` rosdep keys `` (the dependencies listed in the `` package.xml `` file) and check with a central index.
 
 # Types of dependencies in package.xml files
-. <depend> is for dependencies in build time and run time, usually for c++ packages.
+- `` <depend> `` is for dependencies in build time and run time, usually for c++ packages.
 
-. <build_depend is for dependencies for building your package (not during execution)
+- `` <build_depend `` is for dependencies for building your package (not during execution)
 
-. <build_export_depend> is for external package that depend on this package.
+- `` <build_export_depend> `` is for external package that depend on this package.
 
-. <exec_depend> is for run time (shared libraries, executables, python modules, launch scripts)
+- `` <exec_depend> `` is for run time (shared libraries, executables, python modules, launch scripts)
 
-. <test_depend is for running tests.
+- `` <test_depend `` is for running tests.
 
 # rosdep installation 
 ```
@@ -555,10 +555,10 @@ rosdep install --from-paths src -y --ignore-src
 ```
 Meaning:
 
-. --from-path src checks package.xml files in the src folder
+- `` --from-path src `` checks package.xml files in the src folder
 
-. -y install all answer yes to all prompts
+- `` -y `` install all answer yes to all prompts
 
-. --ignore-src ignores packages in the src folder
+- `` --ignore-src `` ignores packages in the src folder
 
 -----------------------------------------------------------------------------------
