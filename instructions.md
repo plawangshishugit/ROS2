@@ -443,3 +443,122 @@ cd ~/ros2_ws/src
 ros2 pkg create --build-type ament_cmake cpp_pubsub
 ```
 2. For the pubsub src, copy 
+------------------------------------------------------------------------------------
+# Doctor
+Ros2 doctar (aka "wtf - where is the fault") is a diagnostic tool that helps you check if your dependencies or packages are up to date and if there is any communication issues between your nodes.
+
+1. Run ros2 doctor
+```
+ros2 doctor
+
+#or
+ros2 wtf
+```
+2. In one terminal, run turtlesim_node
+```
+cd  ~/ros_ws
+ros2 run turtlesim turtlesim_node
+```
+3. In another terminal, run the teleop node
+```
+cd ~/ros_ws
+ros2 run turtlesim turtle_teleop_key
+```
+4. Run ros2 doctor and see the warnings
+```
+rosf2 doctor
+```
+5. Subscribe to one of the topics
+```
+ros2 topic echo /turtle1/color_sensor
+```
+6. Run ros2 doctor and should see one of the warning go away
+```
+ros2 doctor
+```
+7. See full report
+```
+ros2 doctor --report
+```
+--------------------------------------------------------------
+
+# Plugins
+
+Plugins lets you dynamically load new functionality to your code without having to recompile the codes that is using it.
+
+# Create Base Class Package
+
+1. Create base class package
+```
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_cmake --dependencies pluginlib --node-name area_node --license Apache-2.0 polygon_base
+```
+2. Create abstract base class.
+   Move .../polygon_base/regular_polygon.hpp to ~/ros2_ws/src/polygon_base/include/polygon_base
+3. Modify CMakeList.txt file.
+
+# Create Plugin Package
+1. Create pllygon_plugin package
+```
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_cmake --dependencies polygon_base pluginlib --library-name polygon_plugins --license Apache-2.0 polygon_plugins
+```
+2. Replace ros2_ws/src/polygon_plugins/src/polygon_plugins.cpp with .../polygon_plugins/polygon_plugins.cpp
+3. Move .../polygon_plugins/plugins.xml to ros2_ws/src/polygon_plugins
+4. Modyfy CMakeLists.txt file
+----------------------------------------------------------------------------------
+# Use the plugin
+Key Point: the area_node.cpp can use the triangle and square implementation created in the ploygon_plugins without having to include the polygon_plugin class.
+
+1. Replace the
+   ~/ros2_ws/src/polygon_base/src/area_node.cpp with the one in  .../polygon_base/area_node.cpp
+2. Build package
+```
+cd ~/ros2_ws
+colcon build --packages-select polygon_base polygon_plugins
+```
+3. Run code
+```
+source install/setup.bash
+ros2 run polygon_base area_node
+```
+--------------------------------------------------------------------------------
+# Managing Dependencies with rosdep
+
+# What is rosdep?
+The rosdep command is a tool used to manage dependencies in ROS.
+
+# How does rosdep work?
+rosdep will find the "rosdep keys" (the dependencies listed in the package.xml file) and check with a central index.
+
+# Types of dependencies in package.xml files
+. <depend> is for dependencies in build time and run time, usually for c++ packages.
+
+. <build_depend is for dependencies for building your package (not during execution)
+
+. <build_export_depend> is for external package that depend on this package.
+
+. <exec_depend> is for run time (shared libraries, executables, python modules, launch scripts)
+
+. <test_depend is for running tests.
+
+# rosdep installation 
+```
+apt-get install python3-rosdep
+sudo rosdep init
+rosdep update
+```
+# Running the rosdep command
+```
+cd ~/ros_ws
+rosdep install --from-paths src -y --ignore-src
+```
+Meaning:
+
+. --from-path src checks package.xml files in the src folder
+
+. -y install all answer yes to all prompts
+
+. --ignore-src ignores packages in the src folder
+
+-----------------------------------------------------------------------------------
