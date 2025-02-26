@@ -702,3 +702,7 @@ ros2 component unload /ComponentManager 1 2
 ```
 ros2 run rclcpp_components component_container --ros-args -r __node:=MyContainer -r __ns:=/ns
 ```
+2. See new container name
+```
+ros2 component list
+```
