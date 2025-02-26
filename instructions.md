@@ -579,3 +579,61 @@ Meaning:
 - `` --ignore-src `` ignores packages in the src folder
 
 -----------------------------------------------------------------------------------
+# Action Package
+Action consists of a request and result as seen in client and server, but with a feedback. when we create an instanse of an action, it's called a goal.
+
+1. Create package
+```
+cd ~/ros2_ws/src
+ros2 pkg create action_tutorials_interfaces
+```
+2. Create action folder
+```
+cd ~/ros2_ws/src
+mkdir action_tutorials_interfaces/action
+```
+3. Create action folder.
+4. Make Fibonacci.action file and write code.
+5. Modify CMakeList.txt
+6. Modify package.xml
+7. Build
+```
+cd ~/ros2_ws
+colcon build --package-select action_tutorial_interface
+```
+8. Run
+```
+source install/setup.bash
+ros2 interface show action_tutorials_interfaces/action/Fibonacci
+```
+# Action Server Client Package C++
+
+will create our own package, go over the ``visibility_control.h `` file needed for windows build, walk through the server and client cpp files, update the CMakeLists.txt file, build the package, and see the server and client package in action.
+
+# Create and Build Package
+1. Create package
+```
+cd ~/ros2_ws/src
+ros2 pkg create --dependencies acton_tutorials_interfaces rclcpp rclcpp_action rclcpp_components -- action_tutorials_cpp
+```
+2. Make visibility_control.h into include folder
+3. create fibonacci_action_client.cpp
+4. create fibonacci_action_server.cpp
+5. Update CMakeList.txt
+6. Build
+```
+cd ~/ros2_ws
+colcon build --packages-select action_tutorials_cpp
+```
+7. In one terminal, run the following
+```
+cd ~/ros_ws
+source install/setup.bash
+ros2 run action_tutorial_cpp fibonacci_action_server
+```
+8. in another terminal
+```
+cd ~/ros_ws
+source install/setup.bash
+ros2 run action_tutorial_cpp fibonacci_action_client
+```
