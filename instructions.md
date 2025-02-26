@@ -637,3 +637,68 @@ cd ~/ros_ws
 source install/setup.bash
 ros2 run action_tutorial_cpp fibonacci_action_client
 ```
+# Components
+components are used to load nodes at runtime 
+```
+ros2 component types
+```
+# Runtime Composition with Pub/Sub
+1. Start /``ComponentManager``
+```
+ros2 run rclcpp_components component_container
+```
+2. Verify ``/ComponentManager`` Started
+```
+ros2 component list
+```
+3. Start the ``talker`` and ``listner`` components
+```
+ros2 component load /ComponentManager composition composition::Talker
+ros2 component load /ComponentManager composition composition::Listener
+```
+4. See the ``talker`` and ``listner`` components show up
+```
+ros2 component list
+```
+# Runtime Composition with Server/Client
+1. Start ``/ComponentManager``
+```
+ros2 run rclcpp_components component_container
+```
+2. Start server and client
+```
+ros2 component load /ComponentManager composition composition::Server
+ros2 component load /ComponentManager composition composition::Client
+```
+# Compile-time Composition
+```
+ros2 run composition manual_composition
+```
+# Runtime Composition using dlopen
+Here we use ``.so`` or ``shared object`` files, which are dynamically linked during runtime, to create our composition without using the ``ros2 component load`` method from earlier.
+```
+ros2 run composition dlopen_composition `ros2 pkg prefix composition`/lib/composition/libtalker_component.so `ros2 pkg prefix composition`/lib/composition/liblistener_component.so
+```
+# Composition using Launch Files
+```
+ros2 launch composition composition_demo.launch.py
+```
+# Unload Components
+1. Start ``/ComponentManager``
+```
+ros2 run rclcpp_components component_container
+```
+2. Load ``talker`` and ``listener``
+```
+ros2 component load /ComponentManager composition composition::Talker
+ros2 component load /ComponentManager composition composition::Listener
+```
+3. Now unload
+```
+ros2 component unload /ComponentManager 1 2
+```
+# Remap Container Name and Namespace
+1. Start container with custom name and namespace
+```
+ros2 run rclcpp_components component_container --ros-args -r __node:=MyContainer -r __ns:=/ns
+```
